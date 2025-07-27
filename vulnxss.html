@@ -1,0 +1,30 @@
+<!-- xss-vuln.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome Page</title>
+</head>
+<body>
+  <h2>Search our site</h2>
+  
+  <form method="GET">
+    <input type="text" name="q" placeholder="Search...">
+    <button type="submit">Go</button>
+  </form>
+
+  <hr>
+  <div>
+    You searched for: <strong id="output"></strong>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("q");
+    if (query) {
+      // 🚨 Here's the vulnerable sink:
+      document.getElementById("output").innerHTML = query;
+    }
+  </script>
+</body>
+</html>
